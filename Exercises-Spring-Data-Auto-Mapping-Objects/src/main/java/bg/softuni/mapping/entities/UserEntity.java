@@ -1,10 +1,12 @@
 package bg.softuni.mapping.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,10 +14,12 @@ import java.util.Set;
 import static bg.softuni.mapping.constants.Validations.EMAIL_PATTERN;
 
 @Entity
-@Table(name="users")
+@Table(name="users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 @AllArgsConstructor
 @Data
-public class User extends BaseEntity {
+@Builder
+@ToString
+public class UserEntity extends BaseEntity {
 
     @Column(nullable = false)
     @Email(regexp = EMAIL_PATTERN)
@@ -27,21 +31,21 @@ public class User extends BaseEntity {
     @Column(name="full_name", nullable = false)
     private String fullName;
 
-    @ManyToMany
-    private Set<Game> games;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<GameEntity> games;
 
-    @OneToMany(mappedBy = "user", targetEntity = Order.class, fetch = FetchType.EAGER)
-    private Set<Order> orders;
+    @OneToMany(mappedBy = "user", targetEntity = OrderEntity.class, fetch = FetchType.EAGER)
+    private Set<OrderEntity> orders;
 
     @Column
     private Boolean isAdmin;
 
-    public User() {
+    public UserEntity() {
         this.games = new HashSet<>();
         this.orders = new HashSet<>();
     }
 
-    public User(String email, String password, String fullName) {
+    public UserEntity(String email, String password, String fullName) {
         this();
         this.email = email;
         this.password = password;

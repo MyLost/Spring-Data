@@ -1,6 +1,5 @@
 package bg.softuni.mapping.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import static bg.softuni.mapping.constants.Validations.*;
 @Data
 @NoArgsConstructor
 @Builder
-public class UserRegister {
+public class UserRegisterDto {
 
     private String email;
 
@@ -22,7 +21,7 @@ public class UserRegister {
 
     private String fullName;
 
-    public UserRegister(String email, String password, String confirmPassword, String fullName) {
+    public UserRegisterDto(String email, String password, String confirmPassword, String fullName) {
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;

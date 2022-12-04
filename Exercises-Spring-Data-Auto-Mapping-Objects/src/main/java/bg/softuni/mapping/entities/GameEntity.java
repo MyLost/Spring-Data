@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Game extends BaseEntity {
+public class GameEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String title;

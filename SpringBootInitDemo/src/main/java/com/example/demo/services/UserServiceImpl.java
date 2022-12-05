@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(username);
         user.setAge(age);
         user.addAccounts(account);
+        account.setUser(user);
 
         this.userRepository.save(user);
     }

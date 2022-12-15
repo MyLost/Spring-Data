@@ -1,3 +1,4 @@
+import entities.Student;
 import entities.User;
 import orm.EntityManager;
 import orm.MyConnector;
@@ -16,20 +17,42 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws SQLException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, InstantiationException {
 
-        User user = new User("Qisho", 14, LocalDate.of(2017, 6, 20));
-
-        System.out.println(user);
-
+//        User user = new User("Eisho", 14, LocalDate.of(2017, 6, 20));
+//
+//        System.out.println(user);
+//
         MyConnector.createConection();
         EntityManager entityManager = new EntityManager(MyConnector.getConnection());
 
-        entityManager.persist(user);
+        Student ivan = new Student("Ivan", "Roman", 25, LocalDate.of(2022,2, 26));
+        Student mike = new Student("Mike", "Atanasov", 45, LocalDate.of(2021,9, 6));
+        Student dragan = new Student("Dragan", "Verner", 18, LocalDate.of(2000,2, 16));
+        Student pesho = new Student("Pesho", "Alisov", 30, LocalDate.of(2006,7, 14));
 
-        List<User> users = (List<User>) entityManager.find(User.class, "age >= 18 and extract(year from registration) > 2020");
+        entityManager.persist(ivan);
+        entityManager.persist(mike);
+        entityManager.persist(dragan);
+        entityManager.persist(pesho);
 
-        if(users != null) {
-            System.out.println("Founded users are " + users.size());
-            users.forEach(elem -> System.out.println(elem));
-        }
+        List<User> studentsBeforeRemove = (List<User>) entityManager.find(Student.class);
+        System.out.println("Student size " + studentsBeforeRemove.size());
+        entityManager.delete(Student.class, 2);
+        List<User> studentsAfterRemove = (List<User>) entityManager.find(Student.class);
+        System.out.println("Student size " + studentsAfterRemove.size());
+//
+//        entityManager.doCreate(Student.class);
+//
+//        entityManager.doAlter(Student.class);
+//
+//        entityManager.persist(user);
+//
+//        List<User> users = (List<User>) entityManager.find(User.class, "age >= 18 and extract(year from registration) > 2020");
+//
+//        if(users != null) {
+//            System.out.println("Founded users are " + users.size());
+//            users.forEach(elem -> System.out.println(elem));
+//        }
+
+
     }
 }

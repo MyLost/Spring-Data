@@ -1,3 +1,5 @@
+package lecture;
+
 import java.sql.*;
 import java.util.Properties;
 import java.util.Scanner;

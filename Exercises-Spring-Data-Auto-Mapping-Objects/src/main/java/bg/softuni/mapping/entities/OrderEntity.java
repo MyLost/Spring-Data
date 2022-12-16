@@ -12,19 +12,19 @@ import java.util.Set;
 @Entity
 @Table(name = "orders")
 @Data
-public class Order extends BaseEntity {
+public class OrderEntity extends BaseEntity {
 
     @ManyToOne
-    private User user;
+    private UserEntity user;
 
     @ManyToMany
-    private Set<Game> games;
+    private Set<GameEntity> games;
 
-    public Order() {
+    public OrderEntity() {
         this.games = new HashSet<>();
     }
 
-    public Order(User user, Set<Game> games) {
+    public OrderEntity(UserEntity user, Set<GameEntity> games) {
         this.user = user;
         this.games = games;
     }
